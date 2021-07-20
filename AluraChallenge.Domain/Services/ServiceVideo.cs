@@ -99,6 +99,12 @@ namespace AluraChallenge.Domain.Services
 
             var video = await _repositoryVideo.GetByIdAsync(id);
 
+            if (video == null)
+            {
+                AddNotification("Video", "Video não encontrado.");
+                return null;
+            }
+
             return (VideoResponse)video;
         }
 

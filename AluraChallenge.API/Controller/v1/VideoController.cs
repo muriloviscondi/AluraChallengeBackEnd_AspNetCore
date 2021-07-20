@@ -21,7 +21,7 @@ namespace AluraChallenge.API.Controller.v1
             _serviceVideo = serviceVideo;
         }
 
-        [HttpGet("All")]
+        [HttpGet]
         public async Task<IActionResult> GetAll(int? pageNumber)
         {
             var video = await _serviceVideo.GetAllAsync(pageNumber);
@@ -59,7 +59,7 @@ namespace AluraChallenge.API.Controller.v1
             return ResponseAsync(response, _serviceVideo);
         }
 
-        [Route("alter/{id}")]
+        [Route("{id}")]
         [HttpPut]
         public async Task<IActionResult> Alter(string id, [FromBody] AlterVideoViewModel model)
         {
@@ -83,7 +83,7 @@ namespace AluraChallenge.API.Controller.v1
             return ResponseAsync(response, _serviceVideo);
         }
 
-        [Route("remove/{id}")]
+        [Route("{id}")]
         [HttpDelete]
         public async Task<IActionResult> Remove(string id)
         {
