@@ -1,4 +1,5 @@
-﻿using AluraChallenge.Domain.Arguments.Video;
+﻿using AluraChallenge.Domain.Arguments;
+using AluraChallenge.Domain.Arguments.Video;
 using AluraChallenge.Domain.Entities;
 using AluraChallenge.Domain.Interfaces.Services.Base;
 using AluraChallenge.Domain.Utils;
@@ -11,6 +12,8 @@ namespace AluraChallenge.Domain.Interfaces.Services
         Task<ResponseBase> CreateAsync(CreateVideoRequest request);
 
         Task<VideoResponse> GetByIdAsync(string id);
+
+        Task<Paginated<ListVideoResponse, Video>> GetAllVideosByCategoryId(string categoryId, int? pageNumber);
 
         Task<Paginated<ListVideoResponse, Video>> GetAllAsync(int? pageNumber);
 

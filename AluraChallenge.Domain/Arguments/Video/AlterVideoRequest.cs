@@ -11,5 +11,7 @@ namespace AluraChallenge.Domain.Arguments.Video
         public string Description { get; set; }
 
         public string Url { get; set; }
+
+        public string CategoryId { get; set; }
     }
 }

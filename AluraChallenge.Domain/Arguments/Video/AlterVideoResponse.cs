@@ -12,6 +12,8 @@ namespace AluraChallenge.Domain.Arguments.Video
 
         public string Url { get; set; }
 
+        public string CategoryId { get; set; }
+
         public static explicit operator AlterVideoResponse(Entities.Video video)
         {
             return new AlterVideoResponse
@@ -19,7 +21,8 @@ namespace AluraChallenge.Domain.Arguments.Video
                 Id = video.Id,
                 Title = video.Title,
                 Description = video.Description,
-                Url = video.Url,                
+                Url = video.Url,        
+                CategoryId = video.CategoryId,
             };
         }
     }

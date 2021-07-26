@@ -12,15 +12,17 @@ namespace AluraChallenge.Domain.Arguments.Video
 
         public string Url { get; set; }
 
+        public string CategoryId { get; set; }
+
         public static explicit operator VideoResponse(Entities.Video video)
         {
             return new VideoResponse
             {
-
                 Id = video.Id,
                 Title = video.Title,
                 Description = video.Description,
                 Url = video.Url,
+                CategoryId = video.CategoryId,
             };
         }
     }

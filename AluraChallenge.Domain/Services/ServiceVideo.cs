@@ -1,4 +1,5 @@
-﻿using AluraChallenge.Domain.Arguments.Video;
+﻿using AluraChallenge.Domain.Arguments;
+using AluraChallenge.Domain.Arguments.Video;
 using AluraChallenge.Domain.Entities;
 using AluraChallenge.Domain.Interfaces.Repositories;
 using AluraChallenge.Domain.Interfaces.Services;
@@ -6,6 +7,7 @@ using AluraChallenge.Domain.Utils;
 using prmToolkit.NotificationPattern;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AluraChallenge.Domain.Services
@@ -65,7 +67,7 @@ namespace AluraChallenge.Domain.Services
                 return null;
             }
 
-            var video = new Video(request.Title, request.Description, request.Url);
+            var video = new Video(request.Title, request.Description, request.Url, request.CategoryId);
 
             AddNotifications(video);
 
@@ -84,6 +86,15 @@ namespace AluraChallenge.Domain.Services
             IQueryable<Video> video;
 
             video = _repositoryVideo.GetAllOrderBy(true, c => c.Title, true);
+
+            return await Paginated<ListVideoResponse, Video>.CreateAsync(video, pageNumber ?? 1, 10);
+        }
+
+        public async Task<Paginated<ListVideoResponse, Video>> GetAllVideosByCategoryId(string categoryId, int? pageNumber)
+        {
+            Expression<Func<Video, bool>> where = a => a.CategoryId.Equals(categoryId);
+
+            var video = _repositoryVideo.GetAllAndOrderBy(where: where, ordem: p => p.Description);
 
             return await Paginated<ListVideoResponse, Video>.CreateAsync(video, pageNumber ?? 1, 10);
         }
@@ -112,7 +123,7 @@ namespace AluraChallenge.Domain.Services
         {
             if (string.IsNullOrEmpty(id))
             {
-                AddNotification("Id", "Video não encontrada.");
+                AddNotification("Id", "Video não encontrado.");
                 return null;
             }
 

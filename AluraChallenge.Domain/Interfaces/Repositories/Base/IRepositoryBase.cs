@@ -22,5 +22,7 @@ namespace AluraChallenge.Domain.Interfaces.Repositories.Base
         IQueryable<TEntity> GetAllBy(bool asNoTracking = true, Expression<Func<TEntity, bool>> where = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includeProperties = null);
 
         IQueryable<TEntity> GetAllOrderBy<TKey>(bool asNoTracking = true, Expression<Func<TEntity, TKey>> ordem = null, bool ascendente = true, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includeProperties = null);
+
+        IQueryable<TEntity> GetAllAndOrderBy<TKey>(bool asNoTracking = true, Expression<Func<TEntity, bool>> where = null, Expression<Func<TEntity, TKey>> ordem = null, bool ascendente = true, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includeProperties = null);
     }
 }
