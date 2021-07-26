@@ -16,6 +16,9 @@ namespace AluraChallenge.IoC
 
             services.AddScoped<IServiceVideo, ServiceVideo>();
             services.AddScoped<IRepositoryVideo, RepositoryVideo>();
+
+            services.AddScoped<IServiceCategory, ServiceCategory>();
+            services.AddScoped<IRepositoryCategory, RepositoryCategory>();
         }
     }
 }
