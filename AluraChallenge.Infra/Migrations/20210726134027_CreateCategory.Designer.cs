@@ -3,15 +3,17 @@ using System;
 using AluraChallenge.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AluraChallenge.Infra.Migrations
 {
     [DbContext(typeof(AluraChallengeContext))]
-    partial class AluraChallengeContextModelSnapshot : ModelSnapshot
+    [Migration("20210726134027_CreateCategory")]
+    partial class CreateCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace AluraChallenge.Infra.Migrations
                     b.HasOne("AluraChallenge.Domain.Entities.Category", "Category")
                         .WithMany("Videos")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 #pragma warning restore 612, 618
         }

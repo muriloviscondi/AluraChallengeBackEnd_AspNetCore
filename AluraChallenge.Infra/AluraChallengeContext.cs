@@ -11,6 +11,8 @@ namespace AluraChallenge.Infra
         {
         }
 
+        public DbSet<Category> Categories { get; set; }
+
         public DbSet<Video> Videos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +22,7 @@ namespace AluraChallenge.Infra
             modelBuilder.Ignore<prmToolkit.NotificationPattern.Notification>();
 
             #region Adiciona entidades mapeadas 
+            modelBuilder.ApplyConfiguration(new MapCategory());
             modelBuilder.ApplyConfiguration(new MapVideo());
             
             #endregion

@@ -80,5 +80,10 @@ namespace AluraChallenge.Infra.Persistence.Repositories.Base
         {
             return ascendente ? GetAll(asNoTracking, includeProperties).OrderBy(ordem) : GetAll(asNoTracking, includeProperties).OrderByDescending(ordem);
         }
+
+        public IQueryable<TEntity> GetAllAndOrderBy<TKey>(bool asNoTracking = true, Expression<Func<TEntity, bool>> where = null, Expression<Func<TEntity, TKey>> ordem = null, bool ascendente = true, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> includeProperties = null)
+        {
+            return ascendente ? GetAllBy(asNoTracking, where, includeProperties).OrderBy(ordem) : GetAllBy(asNoTracking, where, includeProperties).OrderByDescending(ordem);
+        }
     }
 }
