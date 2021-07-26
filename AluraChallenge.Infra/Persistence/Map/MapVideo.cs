@@ -14,6 +14,8 @@ namespace AluraChallenge.Infra.Persistence.Map
             builder.Property(p => p.Title).HasMaxLength(50).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(150).IsRequired();
             builder.Property(p => p.Url).HasMaxLength(150).IsRequired();
+
+            builder.HasOne(p => p.Category).WithMany(p => p.Videos).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
