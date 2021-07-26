@@ -4,7 +4,6 @@ using AluraChallenge.Domain.Arguments.Video;
 using AluraChallenge.Domain.Interfaces.Services;
 using AluraChallenge.Infra.Transactions;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace AluraChallenge.API.Controller.v1
@@ -13,12 +12,14 @@ namespace AluraChallenge.API.Controller.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class VideoController : BaseController
     {
+        private readonly IServiceCategory _serviceCategory;
         private readonly IServiceVideo _serviceVideo;
 
-        public VideoController(IUnitOfWork unitOfWork, IServiceVideo serviceVideo)
+        public VideoController(IUnitOfWork unitOfWork, IServiceVideo serviceVideo, IServiceCategory serviceCategory)
             : base(unitOfWork)
         {
             _serviceVideo = serviceVideo;
+            _serviceCategory = serviceCategory;
         }
 
         [HttpGet]
@@ -47,11 +48,19 @@ namespace AluraChallenge.API.Controller.v1
         {
             if (!ModelState.IsValid) return ModelStateErros();
 
+            var category = await _serviceCategory.GetByIdAsync(model.CategoryId);
+
+            if (category == null)
+            {
+                return BadRequest(new { errors = _serviceCategory.Notifications });
+            }
+
             var request = new CreateVideoRequest
             {
                 Title = model.Title,
                 Description = model.Description,
-                Url = model.Url
+                Url = model.Url,
+                CategoryId = model.CategoryId,
             };
 
             var response = await _serviceVideo.CreateAsync(request);
@@ -70,12 +79,20 @@ namespace AluraChallenge.API.Controller.v1
 
             if (!ModelState.IsValid) return ModelStateErros();
 
+            var category = await _serviceCategory.GetByIdAsync(model.CategoryId);
+
+            if (category == null)
+            {
+                return BadRequest(new { errors = _serviceCategory.Notifications });
+            }
+
             var request = new AlterVideoRequest
             {
                 Id = id,
                 Title = model.Title,
                 Description = model.Description,
-                Url = model.Url
+                Url = model.Url,
+                CategoryId = model.CategoryId,
             };
 
             var response = await _serviceVideo.AlterAsync(request);
