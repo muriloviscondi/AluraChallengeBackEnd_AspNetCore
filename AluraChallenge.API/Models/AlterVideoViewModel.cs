@@ -17,5 +17,8 @@ namespace AluraChallenge.API.Models
         [Required(ErrorMessage = "A url é obrigatória.")]
         [MaxLength(150, ErrorMessage = "A url deve ter no máximo 150 caracteres.")]
         public string Url { get; set; }
+
+        [Required(ErrorMessage = "A categoria é obrigatória.")]
+        public string CategoryId { get; set; }
     }
 }
